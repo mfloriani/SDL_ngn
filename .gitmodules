@@ -1,0 +1,3 @@
+[submodule "SDL_ngn/common/spdlog"]
+	path = SDL_ngn/common/spdlog
+	url = https://github.com/gabime/spdlog.git
