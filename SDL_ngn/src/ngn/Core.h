@@ -10,5 +10,6 @@
 	#error NGN supports only Windows
 #endif // NGN_PLATFORM_WINDOWS
 
-
+constexpr auto WINDOW_WIDTH = 1440;
+constexpr auto WINDOW_HEIGHT = 900;
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
@@ -24,14 +22,14 @@ namespace ngn
 	};
 }
 
-#define NGN_CORE_TRACE(...) ::ngn::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define NGN_CORE_INFO(...)	::ngn::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define NGN_CORE_WARN(...)	::ngn::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define NGN_CORE_FATAL(...) ::ngn::Log::GetCoreLogger()->fatal(__VA_ARGS__)
-#define NGN_CORE_ERROR(...) ::ngn::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define NGN_CORE_TRACE(...)		::ngn::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define NGN_CORE_INFO(...)		::ngn::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define NGN_CORE_WARN(...)		::ngn::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define NGN_CORE_ERROR(...)		::ngn::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define NGN_CORE_CRITICAL(...)	::ngn::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
-#define NGN_TRACE(...)		::ngn::Log::GetAppLogger()->trace(__VA_ARGS__)
-#define NGN_INFO(...)		::ngn::Log::GetAppLogger()->info(__VA_ARGS__)
-#define NGN_WARN(...)		::ngn::Log::GetAppLogger()->warn(__VA_ARGS__)
-#define NGN_ERROR(...)		::ngn::Log::GetAppLogger()->error(__VA_ARGS__)
-#define NGN_FATAL(...)		::ngn::Log::GetAppLogger()->fatal(__VA_ARGS__)
+#define NGN_TRACE(...)			::ngn::Log::GetAppLogger()->trace(__VA_ARGS__)
+#define NGN_INFO(...)			::ngn::Log::GetAppLogger()->info(__VA_ARGS__)
+#define NGN_WARN(...)			::ngn::Log::GetAppLogger()->warn(__VA_ARGS__)
+#define NGN_ERROR(...)			::ngn::Log::GetAppLogger()->error(__VA_ARGS__)
+#define NGN_CRITICAL(...)		::ngn::Log::GetAppLogger()->critical(__VA_ARGS__)

@@ -1,3 +1,4 @@
+#include "ngnpch.h"
 #include "Log.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
@@ -12,8 +13,9 @@ namespace ngn
 
 	Log::~Log()
 	{
-	}
 
+	}
+	
 	void Log::Init()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");

@@ -1,0 +1,2 @@
+call common\bin\premake5\premake5.exe vs2017
+pause
