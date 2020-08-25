@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
 		app->Quit();
 		return 1;
 	}
-	app->Run();
-	//app->Quit();
+	app->Loop();
+	app->Quit();
 	delete app;
 
 	return 0;

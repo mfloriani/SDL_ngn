@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Core.h"
-
-#define SDL_MAIN_HANDLED
-#include "SDL.h"
+#include "events/Event.h"
+#include "events/AppEvent.h"
 
 namespace ngn
-{	
+{
+	class NgnWindow;
+	
 	class NGN_API Application
 	{
 	public:
@@ -14,16 +15,20 @@ namespace ngn
 		virtual ~Application();
 
 		bool Init();
-		void Run();
+		void Loop();
 		void Quit();
 
+		void OnEvent(Event& e);
+
 	private:
-		SDL_Window*		m_window;
-		SDL_Renderer*	m_renderer;
-		
-		bool			m_running;
+		std::unique_ptr<NgnWindow> m_window;
+		bool m_running;
+
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
+
 	};
 
 	Application* CreateApplication();
-
 }

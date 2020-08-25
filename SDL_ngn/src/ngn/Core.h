@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef NGN_PLATFORM_WINDOWS
 	#ifdef NGN_BUILD_DLL
 		#define NGN_API __declspec(dllexport)
@@ -10,6 +12,6 @@
 	#error NGN supports only Windows
 #endif // NGN_PLATFORM_WINDOWS
 
-constexpr auto WINDOW_WIDTH = 1440;
-constexpr auto WINDOW_HEIGHT = 900;
+constexpr float FPS{ 60.f };
+constexpr float FRAME_LENGTH{ 1000.f / FPS };
 
