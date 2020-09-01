@@ -14,7 +14,7 @@ namespace ngn
 		NgnWindow(int width, int height);
 		~NgnWindow();
 
-		inline SDL_Renderer* Renderer() const { return m_renderer; }
+		inline static SDL_Renderer* Renderer() { return m_renderer; }
 		inline float DeltaTime() const { return m_deltaTime; }
 
 		void OnUpdate();
@@ -27,8 +27,9 @@ namespace ngn
 		void ProcessEvents();
 
 	private:
-		SDL_Window*		m_window;
-		SDL_Renderer*	m_renderer;
+		SDL_Window*				m_window;
+		static SDL_Renderer*	m_renderer;
+
 		SDL_Rect		m_offset;
 		float			m_deltaTime;
 		uint32_t		m_ticksLastFrame;

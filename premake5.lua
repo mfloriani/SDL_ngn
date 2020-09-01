@@ -31,7 +31,8 @@ project "SDL_ngn"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/common/spdlog/include",
-		"%{prj.name}/common/sdl2/include"
+		"%{prj.name}/common/sdl2/include",
+		"%{prj.name}/common/glm"
 	}
 
 	libdirs
@@ -99,7 +100,8 @@ project "BattleShip"
 	{
 		"SDL_ngn/src",
 		"SDL_ngn/common/spdlog/include",
-		"SDL_ngn/common/sdl2/include"
+		"SDL_ngn/common/sdl2/include",
+		"SDL_ngn/common/glm"
 	}
 
 	links
@@ -115,6 +117,12 @@ project "BattleShip"
 		defines
 		{
 			"NGN_PLATFORM_WINDOWS"		
+		}
+
+		postbuildcommands
+		{
+			("{MKDIR} ../bin/" .. outputdir .. "/%{prj.name}/assets"),
+			("{COPY} ./assets ../bin/" .. outputdir .. "/%{prj.name}/assets")
 		}
 
 	filter "configurations:Debug"

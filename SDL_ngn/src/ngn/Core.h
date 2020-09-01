@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
 #include <memory>
+#include <vector>
+#include <unordered_map>
 
 #ifdef NGN_PLATFORM_WINDOWS
 	#ifdef NGN_BUILD_DLL
@@ -15,3 +18,4 @@
 constexpr float FPS{ 60.f };
 constexpr float FRAME_LENGTH{ 1000.f / FPS };
 
+constexpr size_t COMP_MNGR_INIT_BUFFER{ 1024 };

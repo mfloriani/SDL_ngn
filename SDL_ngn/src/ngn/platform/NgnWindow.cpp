@@ -4,11 +4,12 @@
 
 namespace ngn
 {
+	SDL_Renderer* NgnWindow::m_renderer = nullptr;
+
 	NgnWindow::NgnWindow(int width, int height): 
 		m_offset(SDL_Rect{0, 0, width, height}),
 		m_deltaTime(0.0f), 
 		m_ticksLastFrame(0)
-		
 	{
 		Init(width, height);
 	}
