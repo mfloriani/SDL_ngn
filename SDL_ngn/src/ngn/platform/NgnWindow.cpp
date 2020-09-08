@@ -1,6 +1,8 @@
 #include "ngnpch.h"
 #include "NgnWindow.h"
 #include "ngn/events/AppEvent.h"
+#include "ngn/events/KeyEvent.h"
+#include "ngn/events/MouseEvent.h"
 
 namespace ngn
 {
@@ -94,9 +96,48 @@ namespace ngn
 		{
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 			{
-				WindowCloseEvent event;
-				m_eventCallback(event);
+				WindowCloseEvent e;
+				m_eventCallback(e);
 			}
+			switch (event.type)
+			{
+			case SDL_KEYDOWN:
+			{
+				KeyPressedEvent e((int)event.key.keysym.sym, event.key.repeat);
+				m_eventCallback(e);
+				break;
+			}
+			case SDL_KEYUP:
+			{
+				KeyReleasedEvent e((int)event.key.keysym.sym);
+				m_eventCallback(e);
+				break;
+			}
+			case SDL_MOUSEMOTION:
+			{
+				MouseMovedEvent e(event.motion.x, event.motion.y);
+				m_eventCallback(e);
+				break;
+			}
+			case SDL_MOUSEBUTTONDOWN:
+			{
+				MouseButtonPressedEvent e(event.button.button, event.button.clicks);
+				m_eventCallback(e);
+				break;
+			}
+			case SDL_MOUSEBUTTONUP:
+			{
+				MouseButtonReleasedEvent e(event.button.button);
+				m_eventCallback(e);
+				break;
+			}
+			case SDL_MOUSEWHEEL:
+			{
+				MouseScrolledEvent e(event.wheel.x, event.wheel.y);
+				m_eventCallback(e);
+				break;
+			}
+			} 
 		}
 	}
 	

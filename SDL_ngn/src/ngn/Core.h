@@ -15,6 +15,8 @@
 	#error NGN supports only Windows
 #endif // NGN_PLATFORM_WINDOWS
 
+#define BIT(x) (1 << x)
+
 constexpr float FPS{ 60.f };
 constexpr float FRAME_LENGTH{ 1000.f / FPS };
 

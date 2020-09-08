@@ -34,7 +34,7 @@ namespace ngn
 
 	bool Application::Init()
 	{
-		NGN_CORE_TRACE("Application::Init");
+		//NGN_CORE_TRACE("Application::Init");
 		
 		//TODO: remove fixed resolution
 		m_window = std::make_unique<NgnWindow>(1440, 900);
@@ -50,7 +50,7 @@ namespace ngn
 
 	bool Application::Load()
 	{
-		NGN_CORE_TRACE("Application::Load");
+		//NGN_CORE_TRACE("Application::Load");
 
 		if (!m_assetMgr->AddTexture("ship", "./assets/ship1.png"))
 		{
@@ -82,7 +82,7 @@ namespace ngn
 
 	void Application::Loop()
 	{
-		NGN_CORE_TRACE("Application::Loop");
+		//NGN_CORE_TRACE("Application::Loop");
 		while (m_running)
 		{
 			m_window->OnUpdate();
@@ -94,14 +94,16 @@ namespace ngn
 
 	void Application::Quit()
 	{
-		NGN_CORE_TRACE("Application::Quit");
+		//NGN_CORE_TRACE("Application::Quit");
 
 		m_renderingSys->OnQuit();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
-		NGN_CORE_TRACE("Application::OnEvent");
+		//NGN_CORE_TRACE("Application::OnEvent");
+
+		NGN_CORE_TRACE(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));

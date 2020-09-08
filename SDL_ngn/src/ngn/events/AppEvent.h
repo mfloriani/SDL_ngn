@@ -9,5 +9,6 @@ namespace ngn
 	public:
 		WindowCloseEvent() {}
 		EVENT_CLASS_TYPE(WindowClose);
+		EVENT_CLASS_CATEGORY(EventCategoryApp);
 	};
 }
