@@ -6,19 +6,21 @@
 
 namespace ngn
 {
-	class NGN_API Sprite : public Component
+	struct NGN_API Sprite : public Component
 	{
 	public:
 		Sprite(NgnTexture texture);
-		//Sprite(const Sprite& other);
-		//Sprite(Sprite&& other) noexcept;
+		
+		Sprite(Sprite&&) = default;
+		Sprite& operator=(Sprite&&) = default;
 
 		virtual ~Sprite() = default;
+		
+		Sprite(const Sprite&) = delete;
+		Sprite& operator=(const Sprite&) = delete;
 
-		inline const NgnTexture& GetTexture() const{ return m_texture; }
-
-	private:
-		NgnTexture m_texture;
+	public:
+		NgnTexture texture;
 	};
 
 

@@ -5,9 +5,36 @@ namespace ngn
 {
 	Transform::Transform() : 
 		Component(),
-		m_position(glm::vec2()),
-		m_direction(glm::vec2()),
-		m_angle(0.0f)
+		position(glm::vec2()),
+		direction(glm::vec2()),
+		angle(0.0f)
+	{
+
+	}
+
+	Transform::Transform(glm::vec2 pos) : 
+		Component(),
+		position(pos),
+		direction(glm::vec2()),
+		angle(0.0f)
+	{
+
+	}
+
+	Transform::Transform(glm::vec2 pos, glm::vec2 dir) :
+		Component(),
+		position(pos),
+		direction(dir),
+		angle(0.0f)
+	{
+
+	}
+
+	Transform::Transform(glm::vec2 pos, glm::vec2 dir, float angle) :
+		Component(),
+		position(pos),
+		direction(dir),
+		angle(angle)
 	{
 
 	}

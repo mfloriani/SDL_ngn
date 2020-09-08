@@ -9,12 +9,14 @@
 
 #include "ecs/entities/Entity.h"
 #include "ecs/components/Sprite.h"
+#include "ecs/components/Transform.h"
+#include "ecs/components/ComponentManager.h"
 #include "ecs/systems/Rendering.h"
 
 namespace ngn
 {
-	std::unique_ptr<NgnAssetManager>		  Application::m_assetMgr;
-	std::unique_ptr<ComponentManager<Sprite>> Application::m_spriteCMgr;
+	//TODO: move assetManager to a singleton and remove the ref inside Application
+	std::unique_ptr<NgnAssetManager> Application::m_assetMgr;
 
 	#define BIND_EVENT_FN(fn) std::bind(&Application::fn, this, std::placeholders::_1)
 
@@ -39,7 +41,6 @@ namespace ngn
 		m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		m_assetMgr = std::make_unique<NgnAssetManager>();
-		m_spriteCMgr = std::make_unique<ComponentManager<Sprite>>();
 
 		m_renderingSys = std::make_unique<Rendering>();
 		m_renderingSys->OnStart();
@@ -51,21 +52,25 @@ namespace ngn
 	{
 		NGN_CORE_TRACE("Application::Load");
 
-		
-		auto e1 = EntityManager::GetNewID();
-		
 		if (!m_assetMgr->AddTexture("ship", "./assets/ship1.png"))
 		{
 			NGN_CORE_ERROR("Failed to load texture");
 			m_running = false;
 		}
 		
+		auto e1 = EntityManager::GetNewID();
+
+		COMPONENT_MGR(Transform).Add(e1, glm::vec2{ 200, 400 });
+
 		NgnTexture texture;
 		texture.m_texture = m_assetMgr->GetTexture("ship");
 		texture.m_srcrect = { 0, 0, 32, 32 };
-		texture.m_dstrect = { 0, 0, 32, 32 };
+		texture.m_dstrect = { 100, 100, 32, 32 };
 		
-		m_spriteCMgr->Add(Sprite(texture));
+		COMPONENT_MGR(Sprite).Add(e1, texture);
+
+		//COMPONENT_MGR(Script).Add(e1, )
+
 
 		auto e2 = EntityManager::GetNewID();
 		auto e3 = EntityManager::GetNewID();
@@ -81,7 +86,9 @@ namespace ngn
 		while (m_running)
 		{
 			m_window->OnUpdate();
-			m_renderingSys->OnUpdate(m_window->DeltaTime());
+			auto dt = m_window->DeltaTime();
+
+			m_renderingSys->OnUpdate(dt);
 		}
 	}
 

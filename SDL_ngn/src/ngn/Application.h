@@ -17,7 +17,6 @@ namespace ngn
 	
 	class NGN_API Application
 	{
-		//friend class Rendering;
 
 	public:
 		Application();
@@ -30,13 +29,10 @@ namespace ngn
 
 		void OnEvent(Event& e);
 
-		inline static std::unique_ptr<ComponentManager<Sprite>>& GetSpriteCMgr() { return m_spriteCMgr; }
-				
 	private:
 		std::unique_ptr<NgnWindow> m_window;
 		static std::unique_ptr<NgnAssetManager>	m_assetMgr;
-		static std::unique_ptr<ComponentManager<Sprite>> m_spriteCMgr;
-
+		
 		std::unique_ptr<Rendering> m_renderingSys;
 
 		bool m_running;

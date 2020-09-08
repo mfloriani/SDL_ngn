@@ -1,5 +1,6 @@
 workspace "SDL_ngn"
 	architecture "x86"
+	startproject "BattleShip"
 
 	configurations
 	{
@@ -9,6 +10,8 @@ workspace "SDL_ngn"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+startproject "BattleShip"
 
 project "SDL_ngn"
 	location "SDL_ngn"
