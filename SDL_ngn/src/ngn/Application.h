@@ -8,6 +8,7 @@
 #include "ecs/components/ComponentManager.h"
 #include "ecs/components/Sprite.h"
 
+#include "LayerStack.h"
 
 namespace ngn
 {
@@ -29,11 +30,15 @@ namespace ngn
 
 		void OnEvent(Event& e);
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
+
 	private:
 		std::unique_ptr<NgnWindow> m_window;
 		static std::unique_ptr<NgnAssetManager>	m_assetMgr;
-		
 		std::unique_ptr<Rendering> m_renderingSys;
+
+		LayerStack m_layers;
 
 		bool m_running;
 

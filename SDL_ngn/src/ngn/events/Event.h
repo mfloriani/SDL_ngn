@@ -30,8 +30,9 @@ namespace ngn
 
 	class NGN_API Event
 	{
-		friend class EventDispatcher;
 	public:
+		bool Handled{ false };
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -44,8 +45,7 @@ namespace ngn
 		}
 
 		inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
-	private:
-		bool m_handled{ false };
+	
 	};
 
 	class EventDispatcher
@@ -54,15 +54,14 @@ namespace ngn
 		using EventFn = std::function<bool(T&)>;
 
 	public:
-		EventDispatcher(Event& e) : m_event(e)
-		{}
+		EventDispatcher(Event& e) : m_event(e) {}
 
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
 			if (m_event.GetEventType() == T::GetStaticType())
 			{
-				m_event.m_handled = func(*(T*)&m_event);
+				m_event.Handled = func(*(T*)&m_event);
 				return true;
 			}
 			return false;

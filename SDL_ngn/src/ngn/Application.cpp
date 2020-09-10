@@ -88,6 +88,11 @@ namespace ngn
 			m_window->OnUpdate();
 			auto dt = m_window->DeltaTime();
 
+			for (Layer* layer : m_layers)
+			{
+				layer->OnUpdate();
+			}
+
 			m_renderingSys->OnUpdate(dt);
 		}
 	}
@@ -109,6 +114,22 @@ namespace ngn
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
 
+		for (auto it = m_layers.end(); it != m_layers.begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled) break;
+		}
+
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_layers.PushFirst(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_layers.PushLast(layer);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
