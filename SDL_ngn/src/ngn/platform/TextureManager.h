@@ -4,14 +4,14 @@
 
 namespace ngn
 {
-	struct NgnTexture;
+	struct Texture;
 
-	class NGN_API NgnTextureManager
+	class NGN_API TextureManager
 	{
 	public:
 		static SDL_Texture* LoadFromFile(const char* fileName);
 
-		static void Render(const NgnTexture& texture);
+		static void Render(const Texture& texture);
 
 		//static void Render(SDL_Texture* texture);
 		//static void Render(SDL_Texture* texture, SDL_Rect* srcRect, SDL_Rect* dstRect);

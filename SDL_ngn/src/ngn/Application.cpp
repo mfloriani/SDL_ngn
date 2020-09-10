@@ -1,11 +1,11 @@
 #include "ngnpch.h"
 #include "Application.h"
 
-#include "platform/NgnWindow.h"
+#include "platform/Window.h"
 
-#include "platform/NgnAssetManager.h"
-#include "platform/NgnTextureManager.h"
-#include "platform/NgnTexture.h"
+#include "platform/AssetManager.h"
+#include "platform/TextureManager.h"
+#include "platform/Texture.h"
 
 #include "ecs/entities/Entity.h"
 #include "ecs/components/Sprite.h"
@@ -16,7 +16,7 @@
 namespace ngn
 {
 	//TODO: move assetManager to a singleton and remove the ref inside Application
-	std::unique_ptr<NgnAssetManager> Application::m_assetMgr;
+	std::unique_ptr<AssetManager> Application::m_assetMgr;
 
 	#define BIND_EVENT_FN(fn) std::bind(&Application::fn, this, std::placeholders::_1)
 
@@ -37,10 +37,10 @@ namespace ngn
 		//NGN_CORE_TRACE("Application::Init");
 		
 		//TODO: remove fixed resolution
-		m_window = std::make_unique<NgnWindow>(1440, 900);
+		m_window = std::make_unique<Window>(1440, 900);
 		m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_assetMgr = std::make_unique<NgnAssetManager>();
+		m_assetMgr = std::make_unique<AssetManager>();
 
 		m_renderingSys = std::make_unique<Rendering>();
 		m_renderingSys->OnStart();
@@ -62,7 +62,7 @@ namespace ngn
 
 		COMPONENT_MGR(Transform).Add(e1, glm::vec2{ 200, 400 });
 
-		NgnTexture texture;
+		Texture texture;
 		texture.m_texture = m_assetMgr->GetTexture("ship");
 		texture.m_srcrect = { 0, 0, 32, 32 };
 		texture.m_dstrect = { 100, 100, 32, 32 };

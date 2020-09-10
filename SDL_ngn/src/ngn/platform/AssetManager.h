@@ -8,11 +8,11 @@ namespace ngn
 {
 	//struct Animation;
 
-	class NGN_API NgnAssetManager
+	class NGN_API AssetManager
 	{
 	public:
-		NgnAssetManager();
-		~NgnAssetManager();
+		AssetManager();
+		~AssetManager();
 
 		bool AddTexture(std::string id, std::string filePath);
 		//bool AddFont(std::string id, std::string filePath, int size);

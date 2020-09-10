@@ -1,21 +1,21 @@
 #include "ngnpch.h"
-#include "NgnAssetManager.h"
-#include "NgnTextureManager.h"
+#include "AssetManager.h"
+#include "TextureManager.h"
 
 namespace ngn
 {
-	NgnAssetManager::NgnAssetManager()
+	AssetManager::AssetManager()
 	{
 	}
 
-	NgnAssetManager::~NgnAssetManager()
+	AssetManager::~AssetManager()
 	{
 		Free();
 	}
 
-	bool NgnAssetManager::AddTexture(std::string id, std::string filePath)
+	bool AssetManager::AddTexture(std::string id, std::string filePath)
 	{
-		SDL_Texture* texture = NgnTextureManager::LoadFromFile(filePath.c_str());
+		SDL_Texture* texture = TextureManager::LoadFromFile(filePath.c_str());
 		if (!texture)
 		{
 			return false;
@@ -24,7 +24,7 @@ namespace ngn
 		return true;
 	}
 
-	//bool NgnAssetManager::AddFont(std::string id, std::string filePath, int size)
+	//bool AssetManager::AddFont(std::string id, std::string filePath, int size)
 	//{
 	//	TTF_Font* font = FontManager::LoadFromFile(filePath.c_str(), size);
 	//	if (!font)
@@ -35,7 +35,7 @@ namespace ngn
 	//	return true;
 	//}
 
-	//bool NgnAssetManager::AddSound(std::string id, std::string filePath)
+	//bool AssetManager::AddSound(std::string id, std::string filePath)
 	//{
 	//	Mix_Chunk* sound = SoundManager::LoadFromFile(filePath.c_str(), SOUND_VOLUME);
 	//	if (!sound)
@@ -46,7 +46,7 @@ namespace ngn
 	//	return true;
 	//}
 
-	//bool NgnAssetManager::AddMusic(std::string id, std::string filePath)
+	//bool AssetManager::AddMusic(std::string id, std::string filePath)
 	//{
 	//	Mix_Music* music = MusicManager::LoadFromFile(filePath.c_str());
 	//	if (!music)
@@ -58,14 +58,14 @@ namespace ngn
 	//}
 
 	////TODO: should load from a file, not receive the animation data
-	//bool NgnAssetManager::AddAnimation(std::string id, std::vector<SDL_Rect> clips, uint32_t frameRate, bool loop)
+	//bool AssetManager::AddAnimation(std::string id, std::vector<SDL_Rect> clips, uint32_t frameRate, bool loop)
 	//{
 	//	Animation* animation = new Animation(clips, frameRate, loop);
 	//	_animations.insert(std::make_pair(id, animation));
 	//	return true;
 	//}
 
-	SDL_Texture* NgnAssetManager::GetTexture(std::string id) const
+	SDL_Texture* AssetManager::GetTexture(std::string id) const
 	{
 		auto texture = _textures.find(id);
 		if (texture != _textures.end())
@@ -75,7 +75,7 @@ namespace ngn
 		return nullptr;
 	}
 
-	//TTF_Font* NgnAssetManager::GetFont(std::string id) const
+	//TTF_Font* AssetManager::GetFont(std::string id) const
 	//{
 	//	auto font = _fonts.find(id);
 	//	if (font != _fonts.end())
@@ -85,7 +85,7 @@ namespace ngn
 	//	return nullptr;
 	//}
 
-	//Mix_Chunk* NgnAssetManager::GetSound(std::string id) const
+	//Mix_Chunk* AssetManager::GetSound(std::string id) const
 	//{
 	//	auto sound = _sounds.find(id);
 	//	if (sound != _sounds.end())
@@ -95,7 +95,7 @@ namespace ngn
 	//	return nullptr;
 	//}
 
-	//Mix_Music* NgnAssetManager::GetMusic(std::string id) const
+	//Mix_Music* AssetManager::GetMusic(std::string id) const
 	//{
 	//	auto music = _musics.find(id);
 	//	if (music != _musics.end())
@@ -105,7 +105,7 @@ namespace ngn
 	//	return nullptr;
 	//}
 
-	//Animation* NgnAssetManager::GetAnimation(std::string id) const
+	//Animation* AssetManager::GetAnimation(std::string id) const
 	//{
 	//	auto animation = _animations.find(id);
 	//	if (animation != _animations.end())
@@ -115,7 +115,7 @@ namespace ngn
 	//	return nullptr;
 	//}
 
-	//bool NgnAssetManager::HasTexture(std::string id) const
+	//bool AssetManager::HasTexture(std::string id) const
 	//{
 	//	if (_textures.find(id) != _textures.end())
 	//	{
@@ -124,7 +124,7 @@ namespace ngn
 	//	return false;
 	//}
 
-	//bool NgnAssetManager::HasFont(std::string id) const
+	//bool AssetManager::HasFont(std::string id) const
 	//{
 	//	if (_fonts.find(id) != _fonts.end())
 	//	{
@@ -133,7 +133,7 @@ namespace ngn
 	//	return false;
 	//}
 
-	//bool NgnAssetManager::HasSound(std::string id) const
+	//bool AssetManager::HasSound(std::string id) const
 	//{
 	//	if (_sounds.find(id) != _sounds.end())
 	//	{
@@ -142,7 +142,7 @@ namespace ngn
 	//	return false;
 	//}
 
-	//bool NgnAssetManager::HasMusic(std::string id) const
+	//bool AssetManager::HasMusic(std::string id) const
 	//{
 	//	if (_musics.find(id) != _musics.end())
 	//	{
@@ -151,7 +151,7 @@ namespace ngn
 	//	return false;
 	//}
 
-	//bool NgnAssetManager::HasAnimation(std::string id) const
+	//bool AssetManager::HasAnimation(std::string id) const
 	//{
 	//	if (_animations.find(id) != _animations.end())
 	//	{
@@ -160,11 +160,11 @@ namespace ngn
 	//	return false;
 	//}
 
-	void NgnAssetManager::Free()
+	void AssetManager::Free()
 	{
 		for (auto const& [id, texture] : _textures)
 		{
-			NgnTextureManager::Free(texture);
+			TextureManager::Free(texture);
 		}
 		_textures.clear();
 

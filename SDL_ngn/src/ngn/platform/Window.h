@@ -6,13 +6,13 @@
 
 namespace ngn
 {
-	class NGN_API NgnWindow
+	class NGN_API Window
 	{
 	public:
 		using EventCallback = std::function<void(Event&)>;
 
-		NgnWindow(int width, int height);
-		~NgnWindow();
+		Window(int width, int height);
+		~Window();
 
 		inline static SDL_Renderer* Renderer() { return m_renderer; }
 		inline float DeltaTime() const { return m_deltaTime; }

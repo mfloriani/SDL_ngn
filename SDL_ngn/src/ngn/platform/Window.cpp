@@ -1,14 +1,14 @@
 #include "ngnpch.h"
-#include "NgnWindow.h"
+#include "Window.h"
 #include "ngn/events/AppEvent.h"
 #include "ngn/events/KeyEvent.h"
 #include "ngn/events/MouseEvent.h"
 
 namespace ngn
 {
-	SDL_Renderer* NgnWindow::m_renderer = nullptr;
+	SDL_Renderer* Window::m_renderer = nullptr;
 
-	NgnWindow::NgnWindow(int width, int height): 
+	Window::Window(int width, int height): 
 		m_offset(SDL_Rect{0, 0, width, height}),
 		m_deltaTime(0.0f), 
 		m_ticksLastFrame(0)
@@ -16,7 +16,7 @@ namespace ngn
 		Init(width, height);
 	}
 
-	NgnWindow::~NgnWindow()
+	Window::~Window()
 	{
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
@@ -26,7 +26,7 @@ namespace ngn
 		SDL_Quit();
 	}
 
-	bool NgnWindow::Init(int width, int height)
+	bool Window::Init(int width, int height)
 	{
 		SDL_SetMainReady();
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -73,14 +73,14 @@ namespace ngn
 	}
 
 
-	void NgnWindow::OnUpdate()
+	void Window::OnUpdate()
 	{
 		ProcessFramerate();
 		ProcessEvents();
 
 	}
 	
-	void NgnWindow::ProcessFramerate()
+	void Window::ProcessFramerate()
 	{
 		while (!SDL_TICKS_PASSED(SDL_GetTicks(), m_ticksLastFrame + FRAME_LENGTH));
 		m_deltaTime = (SDL_GetTicks() - m_ticksLastFrame) / 1000.f;
@@ -89,7 +89,7 @@ namespace ngn
 	}
 
 
-	void NgnWindow::ProcessEvents()
+	void Window::ProcessEvents()
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -103,6 +103,8 @@ namespace ngn
 			{
 			case SDL_KEYDOWN:
 			{
+				//auto keyname = SDL_GetKeyName(event.key.keysym.sym);
+				//NGN_CORE_INFO("{0}",keyname);
 				KeyPressedEvent e((int)event.key.keysym.sym, event.key.repeat);
 				m_eventCallback(e);
 				break;

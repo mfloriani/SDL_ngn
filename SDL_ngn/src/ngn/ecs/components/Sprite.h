@@ -2,14 +2,14 @@
 
 #include "ngn/Core.h"
 #include "Component.h"
-#include "ngn/platform/NgnTexture.h"
+#include "ngn/platform/Texture.h"
 
 namespace ngn
 {
 	struct NGN_API Sprite : public Component
 	{
 	public:
-		Sprite(NgnTexture texture);
+		Sprite(Texture texture);
 		
 		Sprite(Sprite&&) = default;
 		Sprite& operator=(Sprite&&) = default;
@@ -20,7 +20,7 @@ namespace ngn
 		Sprite& operator=(const Sprite&) = delete;
 
 	public:
-		NgnTexture texture;
+		Texture texture;
 	};
 
 

@@ -3,8 +3,7 @@
 
 namespace ngn
 {
-	Sprite::Sprite(NgnTexture tex) :
-		texture(tex)
+	Sprite::Sprite(Texture tex) : texture(tex)
 	{
 		
 	}

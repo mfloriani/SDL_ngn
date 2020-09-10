@@ -8,7 +8,7 @@ namespace ngn
 {
 
 
-	struct NGN_API NgnTexture
+	struct NGN_API Texture
 	{
 		SDL_Texture* m_texture{nullptr};
 		SDL_Rect     m_srcrect{ 0,0,0,0 };

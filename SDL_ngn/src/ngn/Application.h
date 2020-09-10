@@ -12,8 +12,8 @@
 
 namespace ngn
 {
-	class NgnWindow;
-	class NgnAssetManager;
+	class Window;
+	class AssetManager;
 	class Rendering;
 	
 	class NGN_API Application
@@ -34,8 +34,8 @@ namespace ngn
 		void PushOverlay(Layer* layer);
 
 	private:
-		std::unique_ptr<NgnWindow> m_window;
-		static std::unique_ptr<NgnAssetManager>	m_assetMgr;
+		std::unique_ptr<Window> m_window;
+		static std::unique_ptr<AssetManager>	m_assetMgr;
 		std::unique_ptr<Rendering> m_renderingSys;
 
 		LayerStack m_layers;
