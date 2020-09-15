@@ -2,9 +2,7 @@
 #include "Application.h"
 
 #include "platform/Window.h"
-
 #include "platform/AssetManager.h"
-#include "platform/TextureManager.h"
 #include "platform/Texture.h"
 
 #include "ecs/entities/Entity.h"
@@ -15,100 +13,69 @@
 
 namespace ngn
 {
-	//TODO: move assetManager to a singleton and remove the ref inside Application
-	std::unique_ptr<AssetManager> Application::m_assetMgr;
-
+	Application* Application::s_instance = nullptr;
+	
 	#define BIND_EVENT_FN(fn) std::bind(&Application::fn, this, std::placeholders::_1)
 
 	Application::Application() : 
 		m_renderingSys(nullptr),
-		m_running(true)
+		m_running(true),
+		m_deltaTime(0.0f),
+		m_ticksLastFrame(0)
 	{
-		
-	}
+		s_instance = this;
 
-	Application::~Application()
-	{
-		
-	}
-
-	bool Application::Init()
-	{
-		//NGN_CORE_TRACE("Application::Init");
-		
 		//TODO: remove fixed resolution
 		m_window = std::make_unique<Window>(1440, 900);
 		m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_assetMgr = std::make_unique<AssetManager>();
-
 		m_renderingSys = std::make_unique<Rendering>();
 		m_renderingSys->OnStart();
 
-		return true;
 	}
+
+	Application::~Application()
+	{
+		m_renderingSys->OnQuit();
+	}
+
 
 	bool Application::Load()
 	{
-		//NGN_CORE_TRACE("Application::Load");
-
-		if (!m_assetMgr->AddTexture("ship", "./assets/ship1.png"))
+		for (Layer* layer : m_layers)
 		{
-			NGN_CORE_ERROR("Failed to load texture");
-			m_running = false;
+			layer->OnStart();
 		}
-		
-		auto e1 = EntityManager::GetNewID();
-
-		COMPONENT_MGR(Transform).Add(e1, glm::vec2{ 200, 400 });
-
-		Texture texture;
-		texture.m_texture = m_assetMgr->GetTexture("ship");
-		texture.m_srcrect = { 0, 0, 32, 32 };
-		texture.m_dstrect = { 100, 100, 32, 32 };
-		
-		COMPONENT_MGR(Sprite).Add(e1, texture);
-
-		//COMPONENT_MGR(Script).Add(e1, )
-
-
-		auto e2 = EntityManager::GetNewID();
-		auto e3 = EntityManager::GetNewID();
-
-		NGN_CORE_TRACE("{0},{1},{2}", e1, e2, e3);
 		
 		return true;
 	}
 
 	void Application::Loop()
 	{
-		//NGN_CORE_TRACE("Application::Loop");
+		m_ticksLastFrame = SDL_GetTicks();
+
 		while (m_running)
 		{
-			m_window->OnUpdate();
-			auto dt = m_window->DeltaTime();
+			while (!SDL_TICKS_PASSED(SDL_GetTicks(), m_ticksLastFrame + FRAME_LENGTH));
+			m_deltaTime = (SDL_GetTicks() - m_ticksLastFrame) / 1000.f;
+			m_ticksLastFrame = SDL_GetTicks();
+			if (m_deltaTime > 0.1f) m_deltaTime = 0.1f;
+
+			m_window->OnUpdate(m_deltaTime);
 
 			for (Layer* layer : m_layers)
 			{
 				layer->OnUpdate();
 			}
 
-			m_renderingSys->OnUpdate(dt);
+			m_renderingSys->OnUpdate(m_deltaTime);
 		}
 	}
 
-	void Application::Quit()
-	{
-		//NGN_CORE_TRACE("Application::Quit");
-
-		m_renderingSys->OnQuit();
-	}
 
 	void Application::OnEvent(Event& e)
 	{
-		//NGN_CORE_TRACE("Application::OnEvent");
-
-		NGN_CORE_TRACE(e);
+		NGN_CORE_TRACE("{0}", e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));

@@ -5,28 +5,25 @@
 extern ngn::Application* ngn::CreateApplication();
 
 int main(int argc, char* argv[])
-{
+{	
 	ngn::Log::Init();
-		
+
+	NGN_CORE_TRACE("libSDL::init()");
+	ngn::LibSDL::Init();
+	
+	NGN_CORE_TRACE("createApplication()");
 	auto app = ngn::CreateApplication();
-
-	if (!app->Init())
+	NGN_CORE_TRACE("app::load()");
+	if (app->Load())
 	{
-		app->Quit();
-		return 1;
+		NGN_CORE_TRACE("app::loop()");
+		app->Loop();
 	}
-
-	if (!app->Load())
-	{
-		app->Quit();
-		return 1;
-	}
-
-	app->Loop();
-	app->Quit();
-
+	NGN_CORE_TRACE("delete app");
 	delete app;
 
+	NGN_CORE_TRACE("libSDL::quit()");
+	ngn::LibSDL::Quit();
 	return 0;
 }
 

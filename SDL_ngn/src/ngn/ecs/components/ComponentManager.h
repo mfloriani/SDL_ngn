@@ -3,7 +3,7 @@
 #include "ngn/Core.h"
 #include "Component.h"
 
-#define COMPONENT_MGR(C) ComponentManager<C>::Instance()
+#define COMPONENT_MGR(C) ngn::ComponentManager<C>::Instance()
 
 namespace ngn
 {

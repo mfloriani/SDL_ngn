@@ -7,7 +7,7 @@
 namespace ngn
 {
 
-	class LayerStack
+	class NGN_API LayerStack
 	{
 	public:
 		LayerStack();

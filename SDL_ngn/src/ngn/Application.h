@@ -2,6 +2,8 @@
 
 #include "Core.h"
 
+#include "platform/Window.h"
+
 #include "events/Event.h"
 #include "events/AppEvent.h"
 
@@ -11,9 +13,7 @@
 #include "LayerStack.h"
 
 namespace ngn
-{
-	class Window;
-	class AssetManager;
+{	
 	class Rendering;
 	
 	class NGN_API Application
@@ -23,28 +23,32 @@ namespace ngn
 		Application();
 		virtual ~Application();
 
-		bool Init();
 		bool Load();
 		void Loop();
-		void Quit();
-
+		
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
+		inline Window* GetWindow() const { return m_window.get(); }
+		inline static Application& Get() { return *s_instance; }
+
+
 	private:
-		std::unique_ptr<Window> m_window;
-		static std::unique_ptr<AssetManager>	m_assetMgr;
+		static Application* s_instance;
+		
+		std::unique_ptr<Window> m_window;		
 		std::unique_ptr<Rendering> m_renderingSys;
 
 		LayerStack m_layers;
 
 		bool m_running;
+		float m_deltaTime;
+		uint32_t m_ticksLastFrame;
 
-	private:
+	private:		
 		bool OnWindowClose(WindowCloseEvent& e);
-
 
 	};
 

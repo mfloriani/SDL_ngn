@@ -1,19 +1,24 @@
 #pragma once
 
 #include "ngn/Core.h"
-
-#include <sdl2/SDL.h>
+#include "AssetManager.h"
 
 namespace ngn
 {
-
-
-	struct NGN_API Texture
+	class NGN_API Texture
 	{
-		SDL_Texture* m_texture{nullptr};
-		SDL_Rect     m_srcrect{ 0,0,0,0 };
-		SDL_Rect     m_dstrect{ 0,0,0,0 };
+	public:
+		Texture(std::string filePath);
+		~Texture();
+
+		inline SDL_Texture* GetSDLTexture() const { return m_texture; }
+		inline int GetWidth() const { return m_width; }
+		inline int GetHeight() const { return m_height; }
+
+	private:
+		SDL_Texture* m_texture;
+		int          m_width;
+		int          m_height;
+		
 	};
-
-
 }

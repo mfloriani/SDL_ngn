@@ -1,6 +1,6 @@
 workspace "SDL_ngn"
 	architecture "x86"
-	startproject "BattleShip"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -11,7 +11,7 @@ workspace "SDL_ngn"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-startproject "BattleShip"
+startproject "Sandbox"
 
 project "SDL_ngn"
 	location "SDL_ngn"
@@ -66,8 +66,8 @@ project "SDL_ngn"
 
 		postbuildcommands
 		{
-			("{MKDIR} ../bin/" ..outputdir.. "/BattleShip"),
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/BattleShip")
+			("{MKDIR} ../bin/" ..outputdir.. "/Sandbox"),
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/Sandbox")
 		}
 
 	filter "configurations:Debug"
@@ -85,8 +85,8 @@ project "SDL_ngn"
 		buildoptions "/MD"
 		optimize "On"
 
-project "BattleShip"
-	location "BattleShip"
+project "Sandbox"
+	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
